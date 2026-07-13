@@ -16,3 +16,4 @@ elif [ "$b" -ge "$a" ] && [ "$b" -ge "$c" ]; then
 else
     echo "Biggest number is: $c"
 fi
+echo "added by developer"
