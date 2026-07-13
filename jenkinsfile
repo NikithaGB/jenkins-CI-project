@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'make build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'make test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'make package'
+            }
+        }
+
+        stage('Archive Artifact') {
+            steps {
+                archiveArtifacts artifacts: 'build/*', fingerprint: true
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
