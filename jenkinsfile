@@ -27,6 +27,14 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                sh 'sonar-scanner'
+                    }
+                }
+        }
+
         stage('Archive Artifact') {
             steps {
                 archiveArtifacts artifacts: 'build/*', fingerprint: true
